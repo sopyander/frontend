@@ -1,5 +1,3 @@
-import { authAPI } from "../../api/api.js";
-
 export default class RegisterPage {
   render() {
     return `
@@ -62,39 +60,28 @@ export default class RegisterPage {
     `;
   }
 
-afterRender() {
-  const form = document.getElementById("registerForm");
+  afterRender() {
+    const form = document.getElementById("registerForm");
 
-  if (form) {
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
 
-      const name = document.getElementById("regNama").value.trim();
-      const city = document.getElementById("regAlamat").value.trim();
-      const email = document.getElementById("regEmail").value.trim();
-      const password = document.getElementById("regPassword").value.trim();
+        const nama = document.getElementById("regNama").value;
+        const email = document.getElementById("regEmail").value;
+        const password = document.getElementById("regPassword").value;
+        const alamat = document.getElementById("regAlamat").value;
 
+        alert(`
+Registrasi Berhasil!
+Nama: ${nama}
+Email: ${email}
+Password: ${password}
+Alamat: ${alamat}
+        `);
 
-      const data = {
-        name,
-        city,
-        email,
-        password,
-      };
-
-      try {
-        // === CALL API ===
-        const result = await authAPI.register(data);
-
-        alert("Registrasi berhasil! Silakan login.");
-
-        // Arahkan ke halaman login
         window.location.hash = "#/login";
-      } catch (error) {
-          console.log("REGISTER ERROR:", error);  // ⬅️ DITAMBAHKAN
-          alert("Registrasi gagal: " + error.message);
-      }
-    });
+      });
+    }
   }
-}
 }
